@@ -19,9 +19,17 @@ body {
         justify-content: end;
         align-items: center;
 
+        &.hide {
+            display: none;
+        }
+
         button {
             padding: 4px 6px;
             margin-left: 3px;
+
+            &:first-child {
+                margin-left: 0;
+            }
         }
     }
 }

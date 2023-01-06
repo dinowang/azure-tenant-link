@@ -19,7 +19,7 @@
                 directoryId = directoryInfo[2];
     
                 document.getElementById("info").value = name + "\nhttps://portal.azure.com/" + directoryId;
-                document.getElementById("buttons").style.display = "inline-block";
+                document.getElementById("buttons").classList.remove("hide");
             });
     });
 
