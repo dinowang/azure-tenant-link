@@ -34,6 +34,13 @@
         download(name + " (Azure Portal).webloc", text);
     });
 
+    document.getElementById('any').addEventListener('click', function () {
+        var text = `<script>
+location.href = "https://portal.azure.com/${directoryId}";        
+</script>`;
+        download(name + " (Azure Portal).html", text);
+    });
+
     function download(name, data) {
         var temp = document.createElement("a");
         temp.download = name;
@@ -67,6 +74,7 @@
                 document.getElementById("info").value = name + "\nhttps://portal.azure.com/" + directoryId;
                 document.getElementById("win").style.display = "inline-block";
                 document.getElementById("mac").style.display = "inline-block";
+                document.getElementById("any").style.display = "inline-block";
             });
     }
 })();
