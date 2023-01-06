@@ -1,13 +1,15 @@
 {
     "name": "Azure Tenant Link",
-    "version": "0.2",
+    "version": "0.3",
     "manifest_version": 3,
     "background": {
         "service_worker": "app/background.js"
     },
     "permissions": [
         "scripting",
-        "tabs"
+        "tabs",
+        "bookmarks",
+        "notifications"
     ],
     "host_permissions": [
         "https://portal.azure.com/*",

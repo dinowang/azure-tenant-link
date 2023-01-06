@@ -1,6 +1,13 @@
 (function () {
     var name = null;
     var directoryId = null;
+    var bookmarkRoot = null;
+
+    chrome.bookmarks.search("Azure Tenant Link", x => {
+        if (x && x.length > 0) {
+            bookmarkRoot = x[0];
+        }
+    });
 
     chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
         chrome
@@ -10,7 +17,7 @@
                 func: () => document.querySelector(".fxs-avatarmenu-header").getAttribute("title")
             },
             (result) => {
-                console.log(result);
+                // console.log(result);
                 var title = result[0].result,
                     lines = title.split("\n"),
                     directoryInfo = lines[lines.length - 2].match(/^.*[：:]\s*(.*)\s\((.*)\)$/);
@@ -23,6 +30,15 @@
             });
     });
 
+    function notify(message) {
+        chrome.notifications.create(null, {
+            type: "basic",
+            title: "Azure Tenant Link",
+            iconUrl: "../images/32.png",
+            message: message
+        });
+    }
+
     function download(name, data) {
         var blob = new Blob([data], { type: "text/plain" });
         var temp = document.createElement("a");
@@ -31,6 +47,23 @@
         temp.click();
     }
   
+    document.getElementById('add').addEventListener('click', () => {
+        var detail = {
+            title: `${name} (Azure Portal)`,
+            url: `https://portal.azure.com/${directoryId}`
+        };
+        if (bookmarkRoot) {
+            detail.parentId = bookmarkRoot.id;
+            chrome.bookmarks.create(detail, x => notify("Bookmark added, find it in Azure Tenant Link folder"));
+        } else {
+            chrome.bookmarks.create({ title: "Azure Tenant Link" }, x => {
+                bookmarkRoot = x;
+                detail.parentId = bookmarkRoot.id;
+                chrome.bookmarks.create(detail, x => notify("Bookmark added, find it in Azure Tenant Link folder"));
+            });
+        }
+    });
+
     document.getElementById('win').addEventListener('click', () => {
         var text = `[InternetShortcut]
     URL=https://portal.azure.com/${directoryId}`;
@@ -58,13 +91,13 @@ location.href = "https://portal.azure.com/${directoryId}";
 
     document.getElementById('md').addEventListener('click', () => {
         var text = `[${name} (Azure Portal)](https://portal.azure.com/${directoryId})`;
-        navigator.clipboard.writeText(text);
+        navigator.clipboard.writeText(text).then(() => notify("Markdown link available in clipboard"));
     });
 
     document.getElementById('rtf').addEventListener('click', () => {
         var text = `<a href="https://portal.azure.com/${directoryId}">${name} (Azure Portal)</a>`;
         var item = new ClipboardItem({ "text/html": new Blob([text], { type: "text/html" }) });
-        navigator.clipboard.write([item]);
+        navigator.clipboard.write([item]).then(() => notify("Rich Text link available in clipboard"));
     });
 
 })();
