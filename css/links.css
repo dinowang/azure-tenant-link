@@ -15,6 +15,14 @@ body #info {
   padding: 1px 2px;
 }
 
-body button {
+body #buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+}
+
+body #buttons button {
   padding: 4px 6px;
+  margin-left: 3px;
 }

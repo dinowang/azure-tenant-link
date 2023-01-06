@@ -31,13 +31,13 @@
         temp.click();
     }
   
-    document.getElementById('win').addEventListener('click', function () {
+    document.getElementById('win').addEventListener('click', () => {
         var text = `[InternetShortcut]
     URL=https://portal.azure.com/${directoryId}`;
         download(name + " (Azure Portal).url", text);
     });
 
-    document.getElementById('mac').addEventListener('click', function () {
+    document.getElementById('mac').addEventListener('click', () => {
         var text = `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -49,21 +49,22 @@
         download(name + " (Azure Portal).webloc", text);
     });
 
-    document.getElementById('any').addEventListener('click', function () {
+    document.getElementById('any').addEventListener('click', () => {
         var text = `<script>
 location.href = "https://portal.azure.com/${directoryId}";        
 </script>`;
         download(name + " (Azure Portal).html", text);
     });
 
-    document.getElementById('md').addEventListener('click', function () {
+    document.getElementById('md').addEventListener('click', () => {
         var text = `[${name} (Azure Portal)](https://portal.azure.com/${directoryId})`;
         navigator.clipboard.writeText(text);
     });
 
-    document.getElementById('rtf').addEventListener('click', function () {
+    document.getElementById('rtf').addEventListener('click', () => {
         var text = `<a href="https://portal.azure.com/${directoryId}">${name} (Azure Portal)</a>`;
         var item = new ClipboardItem({ "text/html": new Blob([text], { type: "text/html" }) });
         navigator.clipboard.write([item]);
     });
+
 })();

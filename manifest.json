@@ -5,10 +5,8 @@
     "background": {
         "service_worker": "app/background.js"
     },
-    "options_page": "app/links.html",
     "permissions": [
         "scripting",
-        "activeTab",
         "tabs"
     ],
     "host_permissions": [
