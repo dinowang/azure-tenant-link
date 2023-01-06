@@ -9,11 +9,13 @@
 </head>
 <body>
     <h1>Shortcut Generator</h1>
-    <textarea readonly id="info"></textarea>
-    <div>
-        <button id="win" style="display: none;">Windows (.url)</button>
-        <button id="mac" style="display: none;">macOS (.webloc)</button>
-        <button id="any" style="display: none;">Any (.html)</button>
+    <textarea readonly id="info">Tenant information not found.</textarea>
+    <div id="buttons" style="display: none;">
+        <button id="win" title="Generate downloadable .url">Windows (.url)</button>
+        <button id="mac" title="Generate downloadable .webloc">macOS (.webloc)</button>
+        <button id="any" title="Generate downloadable .html">Any (.html)</button>
+        <button id="md" title="Generate markdown syntax to clipboard">Markdown</button>
+        <button id="rtf" title="Generate rich text to clipboard">Rich Text</button>
     </div>
     <script src="links.js"></script>
 </body>

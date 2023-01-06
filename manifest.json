@@ -1,6 +1,6 @@
 {
     "name": "Azure Tenant Link",
-    "version": "0.1",
+    "version": "0.2",
     "manifest_version": 3,
     "background": {
         "service_worker": "app/background.js"
@@ -19,14 +19,14 @@
         "default_title": "Azure Tenant Link",
         "default_popup": "app/links.html",
         "default_icon": {
-            "16": "images/icon.svg",
-            "24": "images/icon.svg",
-            "32": "images/icon.svg"
+            "16": "images/16.png",
+            "24": "images/24.png",
+            "32": "images/32.png"
         }
     },
     "icons": {
-        "16": "images/icon.svg",
-        "24": "images/icon.svg",
-        "32": "images/icon.svg"
+        "16": "images/16.png",
+        "24": "images/24.png",
+        "32": "images/32.png"
     }
 }

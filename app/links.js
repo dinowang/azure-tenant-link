@@ -1,21 +1,36 @@
-// const tab = chrome.tabs.query({ active: true, currentWindow: true });
-// let result;
-// try {
-//     result = chrome.scripting.executeScript({
-//         target: { tabId: tab.id },
-//         function: () => getSelection().toString(),
-//     });
-//     console.log(result);
-//     document.body.append('Selection: ' + result);
-// } catch (e) {
-//     //return; // ignoring an unsupported page like chrome://extensions
-// }
-
 (function () {
-
     var name = null;
     var directoryId = null;
 
+    chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+        chrome
+            .scripting
+            .executeScript({
+                target: { tabId: tabs[0].id }, 
+                func: () => document.querySelector(".fxs-avatarmenu-header").getAttribute("title")
+            },
+            (result) => {
+                console.log(result);
+                var title = result[0].result,
+                    lines = title.split("\n"),
+                    directoryInfo = lines[lines.length - 2].match(/^.*[：:]\s*(.*)\s\((.*)\)$/);
+    
+                name = directoryInfo[1];
+                directoryId = directoryInfo[2];
+    
+                document.getElementById("info").value = name + "\nhttps://portal.azure.com/" + directoryId;
+                document.getElementById("buttons").style.display = "inline-block";
+            });
+    });
+
+    function download(name, data) {
+        var blob = new Blob([data], { type: "text/plain" });
+        var temp = document.createElement("a");
+        temp.download = name;
+        temp.href = window.URL.createObjectURL(blob);
+        temp.click();
+    }
+  
     document.getElementById('win').addEventListener('click', function () {
         var text = `[InternetShortcut]
     URL=https://portal.azure.com/${directoryId}`;
@@ -41,40 +56,14 @@ location.href = "https://portal.azure.com/${directoryId}";
         download(name + " (Azure Portal).html", text);
     });
 
-    function download(name, data) {
-        var temp = document.createElement("a");
-        temp.download = name;
-        var blob = new Blob([data], {
-            type: "text/plain"
-        });
-        temp.href = window.URL.createObjectURL(blob);
-        temp.click();
-    }
-  
-    chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-        getAvatarTitle(tabs[0].id);
+    document.getElementById('md').addEventListener('click', function () {
+        var text = `[${name} (Azure Portal)](https://portal.azure.com/${directoryId})`;
+        navigator.clipboard.writeText(text);
     });
 
-    function getAvatarTitle(tabId) {
-        chrome
-            .scripting
-            .executeScript({
-                target: { tabId: tabId }, 
-                func: () => document.querySelector(".fxs-avatarmenu-header").getAttribute("title")
-            },
-            (result) => {
-                console.log(result);
-                var title = result[0].result,
-                    lines = title.split("\n"),
-                    directoryInfo = lines[lines.length - 2].match(/^.*[：:]\s*(.*)\s\((.*)\)$/);
-
-                name = directoryInfo[1];
-                directoryId = directoryInfo[2];
-
-                document.getElementById("info").value = name + "\nhttps://portal.azure.com/" + directoryId;
-                document.getElementById("win").style.display = "inline-block";
-                document.getElementById("mac").style.display = "inline-block";
-                document.getElementById("any").style.display = "inline-block";
-            });
-    }
+    document.getElementById('rtf').addEventListener('click', function () {
+        var text = `<a href="https://portal.azure.com/${directoryId}">${name} (Azure Portal)</a>`;
+        var item = new ClipboardItem({ "text/html": new Blob([text], { type: "text/html" }) });
+        navigator.clipboard.write([item]);
+    });
 })();
