@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 body {
-    min-width: 500px;
+    min-width: 550px;
     padding: 5px;
 
     #info {
@@ -16,20 +16,44 @@ body {
     #buttons {
         display: flex;
         flex-direction: row;
-        justify-content: end;
+        justify-content: space-between;
         align-items: center;
 
         &.hide {
             display: none;
         }
 
-        button {
-            padding: 4px 6px;
-            margin-left: 3px;
-
+        .button-group {
+            position: relative;
+            padding-top: 20px;
+            margin-left: 5px;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: stretch;
+            
             &:first-child {
                 margin-left: 0;
             }
+
+            &::before {
+                content: attr(title);
+                font-size: 7px;
+                display: inline-block;
+                margin-top: -20px;
+                position: absolute;
+                color: #999
+            }
+
+            button {
+                padding: 4px 6px;
+                margin: 0;
+                font-size: 7px;
+    
+                &:first-child {
+                    margin-left: 0;
+                }
+            }
         }
+
     }
 }

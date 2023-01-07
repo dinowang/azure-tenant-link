@@ -5,7 +5,7 @@
 }
 
 body {
-  min-width: 500px;
+  min-width: 550px;
   padding: 5px;
 }
 
@@ -18,7 +18,7 @@ body #info {
 body #buttons {
   display: flex;
   flex-direction: row;
-  justify-content: end;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -26,11 +26,34 @@ body #buttons.hide {
   display: none;
 }
 
-body #buttons button {
-  padding: 4px 6px;
-  margin-left: 3px;
+body #buttons .button-group {
+  position: relative;
+  padding-top: 20px;
+  margin-left: 5px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
 }
 
-body #buttons button:first-child {
+body #buttons .button-group:first-child {
+  margin-left: 0;
+}
+
+body #buttons .button-group::before {
+  content: attr(title);
+  font-size: 7px;
+  display: inline-block;
+  margin-top: -20px;
+  position: absolute;
+  color: #999;
+}
+
+body #buttons .button-group button {
+  padding: 4px 6px;
+  margin: 0;
+  font-size: 7px;
+}
+
+body #buttons .button-group button:first-child {
   margin-left: 0;
 }

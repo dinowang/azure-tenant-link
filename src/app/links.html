@@ -11,12 +11,18 @@
     <h1>Azure Tenant Link Generator</h1>
     <textarea readonly id="info">Tenant information not found.</textarea>
     <div id="buttons" class="hide">
-        <button id="add" title="Add bookmark">+</button>
-        <button id="win" title="Generate downloadable .url">Windows (.url)</button>
-        <button id="mac" title="Generate downloadable .webloc">macOS (.webloc)</button>
-        <button id="any" title="Generate downloadable .html">Any (.html)</button>
-        <button id="md" title="Generate markdown syntax to clipboard">Markdown</button>
-        <button id="rtf" title="Generate rich text to clipboard">Rich Text</button>
+        <div class="button-group" title="bookmark">
+            <button id="add" title="Add bookmark">Add bookmark</button>
+        </div>
+        <div class="button-group" title="download">
+            <button id="win" title="Generate downloadable .url">Windows (.url)</button>
+            <button id="mac" title="Generate downloadable .webloc">macOS (.webloc)</button>
+            <button id="any" title="Generate downloadable .html">Any (.html)</button>
+        </div>
+        <div class="button-group" title="clipboard">
+            <button id="md" title="Generate markdown syntax to clipboard">Markdown</button>
+            <button id="rtf" title="Generate rich text to clipboard">Rich Text</button>
+        </div>
     </div>
     <script src="links.js"></script>
 </body>
